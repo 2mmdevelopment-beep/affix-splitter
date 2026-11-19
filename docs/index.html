@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>접사 탐정 · Affix Splitter</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><span class="logo" aria-hidden="true">▸▸</span> 접사 탐정 <small>Affix Splitter</small></div>
+  <div id="userbox" class="userbox" hidden>
+    <span id="counter" class="counter" title="오늘 남은 조회 횟수"></span>
+    <span id="email" class="email"></span>
+    <button id="signout" class="ghost small">로그아웃</button>
+  </div>
+</header>
+
+<main>
+  <!-- Login -->
+  <section id="view-login" class="card center">
+    <h1>모르는 단어, 접사로 풀어 보세요</h1>
+    <p class="muted">단어를 입력하면 접두사 · 어근 · 접미사로 나눠 보여 줘요.<br>뜻은 먼저 추측해 본 다음에 확인할 수 있어요.</p>
+    <div id="g_btn" class="g-btn"></div>
+    <p id="login-msg" class="msg" role="alert"></p>
+    <p class="notice">학교 구글 계정으로만 로그인할 수 있어요. 조회한 단어와 추측 기록은 학습 분석을 위해 이름 없이(익명 ID로) 저장돼요.</p>
+  </section>
+
+  <!-- App -->
+  <div id="view-app" hidden>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="lookup" role="tab">단어 찾기</button>
+      <button class="tab" data-tab="history" role="tab">오늘 기록</button>
+      <button class="tab" data-tab="admin" role="tab" id="tab-admin" hidden>교수자</button>
+    </nav>
+
+    <!-- Lookup -->
+    <section id="tab-lookup" class="panel">
+      <form id="lookup-form" class="card row" autocomplete="off">
+        <label class="sr" for="word">영어 단어</label>
+        <input id="word" name="word" placeholder="예: incorrect, unhappiness" maxlength="40" spellcheck="false" autocapitalize="none" required>
+        <button id="lookup-btn" class="primary" type="submit">분해하기</button>
+      </form>
+      <p class="legend"><span class="chip prefix">접두사</span> <span class="chip root">어근</span> <span class="chip suffix">접미사</span></p>
+      <p id="lookup-msg" class="msg" role="alert"></p>
+      <div id="result"></div>
+    </section>
+
+    <!-- History -->
+    <section id="tab-history" class="panel" hidden>
+      <div class="card">
+        <h2>오늘 조회한 단어</h2>
+        <ul id="history-list" class="list"></ul>
+      </div>
+    </section>
+
+    <!-- Admin -->
+    <section id="tab-admin-panel" class="panel" hidden>
+      <div class="card">
+        <div class="row between">
+          <h2>사용 현황</h2>
+          <div class="row gap">
+            <button id="refresh-stats" class="ghost small">새로고침</button>
+            <button id="export-csv" class="ghost small">단어 CSV 내보내기</button>
+            <button id="export-json" class="ghost small">JSON 내보내기</button>
+          </div>
+        </div>
+        <div id="stats"></div>
+      </div>
+      <div class="card">
+        <div class="row between">
+          <h2>AI 분석 표본 점검</h2>
+          <button id="load-sample" class="ghost small">표본 30개 불러오기</button>
+        </div>
+        <p class="muted small-text">분해가 맞는지 확인해서 ‘맞음’ 또는 ‘오류’를 눌러 주세요. 오류로 표시한 단어는 다음 조회 때 다시 분석돼요.</p>
+        <div id="sample"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>AI의 분석은 틀릴 수 있어요. 결과는 추측을 돕는 참고용으로 사용하세요.</footer>
+
+<script src="config.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="app.js"></script>
+</body>
+</html>
